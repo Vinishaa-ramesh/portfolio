@@ -1,0 +1,15 @@
+.about-grid {
+  max-width: 760px;
+}
+
+.about-copy {
+  display: grid;
+  gap: 1rem;
+  color: var(--text-muted);
+  line-height: 1.8;
+}
+
+.about-copy p {
+  margin: 0;
+  font-size: 1.05rem;
+}

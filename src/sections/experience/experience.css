@@ -1,0 +1,113 @@
+.timeline {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.timeline-item {
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr);
+  gap: 1rem;
+  padding: 1.4rem 0;
+  border-top: 1px solid var(--border);
+}
+
+.timeline-item:first-child {
+  border-top: none;
+  padding-top: 0;
+}
+
+.timeline-marker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--accent);
+  box-shadow: var(--shadow-soft);
+}
+
+.timeline-content {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.timeline-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.timeline-header h3 {
+  margin: 0;
+  font-size: clamp(1.2rem, 2vw, 1.6rem);
+  letter-spacing: -0.03em;
+}
+
+.meta-line {
+  margin: 0.35rem 0 0;
+  color: var(--text-muted);
+}
+
+.meta-line a {
+  color: var(--accent-strong);
+  font-weight: 600;
+}
+
+.meta-line a:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.date-pill {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--accent-strong);
+  padding: 0.45rem 0.7rem;
+  white-space: nowrap;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.role-description {
+  margin: 0;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+.role-summary,
+.role-contributions {
+  display: grid;
+  gap: 0.65rem;
+}
+
+.role-summary h4,
+.role-contributions h4 {
+  margin: 0;
+  color: var(--text);
+  font-size: 0.92rem;
+}
+
+.bullet-list {
+  margin: 0;
+  padding-left: 1.1rem;
+  color: var(--text-muted);
+  display: grid;
+  gap: 0.55rem;
+  line-height: 1.7;
+}
+
+@media (max-width: 799px) {
+  .timeline-header {
+    display: grid;
+  }
+
+  .timeline-item {
+    grid-template-columns: 32px minmax(0, 1fr);
+  }
+}
