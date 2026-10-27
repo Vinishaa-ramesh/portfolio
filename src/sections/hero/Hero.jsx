@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import Button from '../../common-components/Button';
 import TagList from '../../common-components/TagList';
 import { portfolio } from '../../data/portfolio';
+import { getGmailComposeUrl, openGmail } from '../../utils/gmail';
 import './hero.css';
 
 export default function Hero() {
@@ -33,7 +34,13 @@ export default function Hero() {
                 <Github size={18} />
               </a>
             </div>
-            <Button href={`mailto:${portfolio.email}`} variant="primary">
+            <Button
+              href={getGmailComposeUrl(portfolio.email)}
+              target="_blank"
+              rel="noreferrer"
+              onClick={(event) => openGmail(event, portfolio.email)}
+              variant="primary"
+            >
               Email me
               <ArrowRight size={18} />
             </Button>

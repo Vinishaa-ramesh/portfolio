@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
-import { ArrowUpRight, Github, Linkedin, Mail, MapPin, Phone, Send } from 'lucide-react';
+import { ArrowUpRight, Check, Copy, Github, Linkedin, Mail, MapPin, Phone, Send } from 'lucide-react';
 import SectionHeader from '../../common-components/SectionHeader';
 import { portfolio } from '../../data/portfolio';
 import Button from '../../common-components/Button';
-import { appCheckMisconfigured, firebaseConfigured, saveContactMessage } from '../../services/firebase';
+import { firebaseConfigured, reportClientFailure, saveContactMessage } from '../../services/firebase';
+import { getGmailComposeUrl, openGmail } from '../../utils/gmail';
 import './contact.css';
 
 const emptyForm = { name: '', email: '', message: '' };
@@ -19,8 +20,8 @@ function getSavedDraft() {
       email: typeof savedDraft.email === 'string' ? savedDraft.email.slice(0, 254) : '',
       message: typeof savedDraft.message === 'string' ? savedDraft.message.slice(0, 5000) : '',
     };
-  } catch (error) {
-    console.warn('Unable to restore the saved contact draft.', error);
+  } catch {
+    void reportClientFailure('contact_draft_storage_failed');
     return emptyForm;
   }
 }
@@ -29,6 +30,7 @@ export default function ContactSection() {
   const [form, setForm] = useState(getSavedDraft);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [status, setStatus] = useState(null);
+  const [copyStatus, setCopyStatus] = useState('');
 
   useEffect(() => {
     try {
@@ -37,13 +39,23 @@ export default function ContactSection() {
       } else {
         localStorage.removeItem(contactDraftKey);
       }
-    } catch (error) {
-      console.warn('Unable to save the contact draft locally.', error);
+    } catch {
+      void reportClientFailure('contact_draft_storage_failed');
     }
   }, [form]);
 
   const updateField = (event) => {
     setForm((current) => ({ ...current, [event.target.name]: event.target.value }));
+  };
+
+  const copyContactDetail = async (label, value) => {
+    try {
+      await navigator.clipboard.writeText(value);
+      setCopyStatus(`${label} copied.`);
+    } catch {
+      void reportClientFailure('contact_copy_failed');
+      setCopyStatus(`Couldn't copy ${label.toLowerCase()}. Please select and copy it.`);
+    }
   };
 
   const handleSubmit = async (event) => {
@@ -54,20 +66,26 @@ export default function ContactSection() {
     setStatus(null);
 
     try {
-      await saveContactMessage({
+      const saved = await saveContactMessage({
         name: form.name.trim(),
         email: form.email.trim(),
         message: form.message.trim(),
       });
+      if (!saved) {
+        setStatus({
+          type: 'error',
+          text: "We couldn't send your message. Please try again or email me directly.",
+        });
+        return;
+      }
+
       setForm(emptyForm);
       setStatus({ type: 'success', text: 'Thanks for reaching out. Your message has been received.' });
-    } catch (error) {
-      console.error('Unable to save the contact message.', error);
+    } catch {
+      void reportClientFailure('contact_submission_failed');
       setStatus({
         type: 'error',
-        text: appCheckMisconfigured
-          ? 'Firebase rejected the message because App Check is enabled with an invalid site key. Configure a reCAPTCHA v3 site key and try again.'
-          : 'Your message could not be saved. Please email me directly instead.',
+        text: "We couldn't send your message. Please try again or email me directly.",
       });
     } finally {
       setIsSubmitting(false);
@@ -90,14 +108,41 @@ export default function ContactSection() {
               I enjoy working with product teams to turn ideas into dependable engineering systems, from Android experiences to full-stack product delivery and AI-powered workflows.
             </p>
             <div className="contact-links">
-              <a href={`mailto:${portfolio.email}`}>
-                <Mail size={16} />
-                {portfolio.email}
-              </a>
-              <a href={`tel:${portfolio.phone.replace(/\s+/g, '')}`}>
-                <Phone size={16} />
-                {portfolio.phone}
-              </a>
+              <div className="contact-detail">
+                <a href={`tel:${portfolio.phone.replace(/\s+/g, '')}`}>
+                  <Phone size={16} />
+                  {portfolio.phone}
+                </a>
+                <button
+                  type="button"
+                  className="copy-contact-button"
+                  onClick={() => copyContactDetail('Phone number', portfolio.phone)}
+                  aria-label="Copy phone number"
+                  title="Copy phone number"
+                >
+                  {copyStatus === 'Phone number copied.' ? <Check size={15} /> : <Copy size={15} />}
+                </button>
+              </div>
+              <div className="contact-detail">
+                <a
+                  href={getGmailComposeUrl(portfolio.email)}
+                  target="_blank"
+                  rel="noreferrer"
+                  onClick={(event) => openGmail(event, portfolio.email)}
+                >
+                  <Mail size={16} />
+                  {portfolio.email}
+                </a>
+                <button
+                  type="button"
+                  className="copy-contact-button"
+                  onClick={() => copyContactDetail('Email address', portfolio.email)}
+                  aria-label="Copy email address"
+                  title="Copy email address"
+                >
+                  {copyStatus === 'Email address copied.' ? <Check size={15} /> : <Copy size={15} />}
+                </button>
+              </div>
               <a href={portfolio.links.linkedin} target="_blank" rel="noreferrer">
                 <Linkedin size={16} />
                 LinkedIn
@@ -113,6 +158,7 @@ export default function ContactSection() {
                 {portfolio.location}
               </span>
             </div>
+            {copyStatus ? <p className="contact-copy-status" role="status">{copyStatus}</p> : null}
           </div>
 
           <form className="contact-form" onSubmit={handleSubmit}>
@@ -155,7 +201,7 @@ export default function ContactSection() {
             <input className="contact-honeypot" type="text" name="website" tabIndex="-1" autoComplete="off" aria-hidden="true" />
             {status ? <p className={`contact-status ${status.type}`} role={status.type === 'error' ? 'alert' : 'status'}>{status.text}</p> : null}
             {!firebaseConfigured ? (
-              <p className="contact-status info" role="status">Firebase setup is needed before messages can be sent. You can email me directly using the address on the left.</p>
+              <p className="contact-status info" role="status">The contact form is temporarily unavailable. Please email me directly instead.</p>
             ) : null}
             <Button type="submit" className="contact-submit" disabled={isSubmitting || !firebaseConfigured}>
               {isSubmitting ? 'Sending…' : 'Send message'}

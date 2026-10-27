@@ -11,11 +11,16 @@ import EducationSection from './sections/education/EducationSection';
 import ContactSection from './sections/contact/ContactSection';
 import Footer from './sections/footer/Footer';
 import { portfolio } from './data/portfolio';
-import { firebaseConfigured, recordSiteVisit } from './services/firebase';
+import { firebaseConfigured, recordSiteVisit, reportClientFailure } from './services/firebase';
 
 function getInitialTheme() {
-  const savedTheme = localStorage.getItem('theme');
-  if (savedTheme === 'dark' || savedTheme === 'light') return savedTheme;
+  try {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark' || savedTheme === 'light') return savedTheme;
+  } catch {
+    void reportClientFailure('theme_preference_storage_failed');
+  }
+
   return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 }
 
@@ -40,19 +45,29 @@ export default function App() {
     fetch(`${import.meta.env.BASE_URL}theme-colors.json`)
       .then((response) => {
         if (!response.ok) {
-          throw new Error(`Failed to load theme colors (${response.status})`);
+          return null;
         }
         return response.json();
       })
-      .then(setColors)
-      .catch((error) => {
-        console.error('Unable to load theme colors.', error);
+      .then((palette) => {
+        if (palette) {
+          setColors(palette);
+        } else {
+          void reportClientFailure('theme_palette_load_failed');
+        }
+      })
+      .catch(() => {
+        void reportClientFailure('theme_palette_load_failed');
       });
   }, []);
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
-    localStorage.setItem('theme', theme);
+    try {
+      localStorage.setItem('theme', theme);
+    } catch {
+      void reportClientFailure('theme_preference_storage_failed');
+    }
   }, [theme]);
 
   useEffect(() => {
@@ -60,15 +75,26 @@ export default function App() {
   }, [colors, theme]);
 
   useEffect(() => {
-    if (!firebaseConfigured) return;
+    if (!firebaseConfigured) {
+      void reportClientFailure('firebase_initialization_failed');
+      return;
+    }
 
     const visitKey = 'portfolio-visit-recorded';
-    if (sessionStorage.getItem(visitKey)) return;
+    try {
+      if (sessionStorage.getItem(visitKey)) return;
+      sessionStorage.setItem(visitKey, 'true');
+    } catch {
+      void reportClientFailure('session_storage_failed');
+    }
 
-    sessionStorage.setItem(visitKey, 'true');
-    recordSiteVisit().catch((error) => {
-      sessionStorage.removeItem(visitKey);
-      console.error('Unable to record the portfolio visit.', error);
+    recordSiteVisit().then((recorded) => {
+      if (recorded) return;
+      try {
+        sessionStorage.removeItem(visitKey);
+      } catch {
+        void reportClientFailure('session_storage_failed');
+      }
     });
   }, []);
 
