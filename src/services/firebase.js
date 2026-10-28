@@ -20,6 +20,7 @@ const failureCategories = new Set([
   'app_check_initialization_failed',
   'contact_copy_failed',
   'contact_draft_storage_failed',
+  'contact_notification_failed',
   'contact_submission_failed',
   'firebase_initialization_failed',
   'gmail_launch_failed',

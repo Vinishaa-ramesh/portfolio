@@ -7,7 +7,6 @@ import ExperienceSection from './sections/experience/ExperienceSection';
 import ProjectsSection from './sections/projects/ProjectsSection';
 import SkillsSection from './sections/skills/SkillsSection';
 import CertificationsSection from './sections/certifications/CertificationsSection';
-import EducationSection from './sections/education/EducationSection';
 import ContactSection from './sections/contact/ContactSection';
 import Footer from './sections/footer/Footer';
 import { portfolio } from './data/portfolio';
@@ -117,10 +116,9 @@ export default function App() {
           <Hero />
           <AboutSection />
           <ExperienceSection />
-          <ProjectsSection />
+          {/* <ProjectsSection /> */}
           <SkillsSection />
-          <CertificationsSection />
-          <EducationSection />
+          {/* <CertificationsSection /> */}
           <ContactSection />
         </main>
         <Footer />

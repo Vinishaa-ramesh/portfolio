@@ -11,7 +11,6 @@ export default function ExperienceSection() {
       <div className="container">
         <SectionHeader
           eyebrow="Experience"
-          title="Engineering work with measurable traction."
           description="My experience combines product ownership, production reliability, and technical execution across mobile and full-stack systems."
         />
 
@@ -35,13 +34,13 @@ export default function ExperienceSection() {
                   <span className="date-pill">{role.period}</span>
                 </div>
 
-                <div className="role-summary">
+                {/* <div className="role-summary">
                   <h4>Work summary</h4>
                   <p className="role-description">{role.description}</p>
-                </div>
+                </div> */}
 
                 <div className="role-contributions">
-                  <h4>Selected contributions</h4>
+                  <h4>Impact</h4>
                   <ul className="bullet-list">
                     {role.bullets.slice(0, 4).map((bullet) => (
                       <li key={bullet}>{bullet}</li>

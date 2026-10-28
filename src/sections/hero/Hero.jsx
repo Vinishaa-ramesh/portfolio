@@ -1,9 +1,9 @@
 import { ArrowRight, Download, Github, Linkedin, MoveDown } from 'lucide-react';
 import { motion } from 'framer-motion';
 import Button from '../../common-components/Button';
+import GmailLink from '../../common-components/GmailLink';
 import TagList from '../../common-components/TagList';
 import { portfolio } from '../../data/portfolio';
-import { getGmailComposeUrl, openGmail } from '../../utils/gmail';
 import './hero.css';
 
 export default function Hero() {
@@ -34,16 +34,14 @@ export default function Hero() {
                 <Github size={18} />
               </a>
             </div>
-            <Button
-              href={getGmailComposeUrl(portfolio.email)}
+            <GmailLink
+              className="button button-primary"
               target="_blank"
               rel="noreferrer"
-              onClick={(event) => openGmail(event, portfolio.email)}
-              variant="primary"
             >
               Email me
               <ArrowRight size={18} />
-            </Button>
+            </GmailLink>
             <Button href={portfolio.links.resume} variant="secondary" target="_blank" rel="noreferrer">
               <Download size={18} />
               Download Resume
@@ -66,11 +64,11 @@ export default function Hero() {
             <div className="panel-body">
               <div className="code-card">
                 <span className="label">Focus</span>
-                <strong>Thoughtful product engineering</strong>
+                <strong>AI-first Product Engineering</strong>
                 <ul>
-                  <li>Android engineering</li>
-                  <li>Full-stack delivery</li>
-                  <li>AI-enabled workflows</li>
+                  {portfolio.mySkills.map((skill, index) => (
+                    <li key={index}>{skill}</li>
+                  ))}
                 </ul>
               </div>
             </div>
@@ -78,9 +76,9 @@ export default function Hero() {
         </motion.div>
       </div>
 
-      <div className="scroll-indicator" aria-label="Scroll to content">
+      {/* <div className="scroll-indicator" aria-label="Scroll to content">
         <MoveDown size={16} />
-      </div>
+      </div> */}
     </section>
   );
 }

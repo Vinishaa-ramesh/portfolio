@@ -9,8 +9,7 @@ export default function CertificationsSection() {
       <div className="container">
         <SectionHeader
           eyebrow="Certifications"
-          title="Professional credentials and learning milestones."
-          description="The resume does not list any explicit certifications, so this section is intentionally kept as a structured empty state ready for future additions."
+          description="Professional credentials and learning milestones."
         />
 
         {portfolio.certifications.length ? (
@@ -20,10 +19,7 @@ export default function CertificationsSection() {
             <div className="empty-icon">
               <Award size={24} />
             </div>
-            <h3>No certifications listed in the resume.</h3>
-            <p>
-              This portfolio is configured to accept future certification entries in the centralized data file without inventing credentials.
-            </p>
+            <h3>No certifications listed yet.</h3>
           </div>
         )}
       </div>
