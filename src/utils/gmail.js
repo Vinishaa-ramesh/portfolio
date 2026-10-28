@@ -16,7 +16,7 @@ export function openGmail(event, email) {
   event.preventDefault();
 
   if (isAndroid) {
-    const intentUrl = `intent://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(email)}#Intent;scheme=https;package=com.google.android.gm;S.browser_fallback_url=${encodeURIComponent(webUrl)};end`;
+    const intentUrl = `intent://co?to=${encodeURIComponent(email)}#Intent;scheme=googlegmail;package=com.google.android.gm;S.browser_fallback_url=${encodeURIComponent(webUrl)};end`;
     try {
       window.location.href = intentUrl;
     } catch {

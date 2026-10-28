@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
 import { ArrowUpRight, Check, Copy, Github, Linkedin, Mail, MapPin, Phone, Send } from 'lucide-react';
 import SectionHeader from '../../common-components/SectionHeader';
+import GmailLink from '../../common-components/GmailLink';
 import { portfolio } from '../../data/portfolio';
 import Button from '../../common-components/Button';
 import { firebaseConfigured, reportClientFailure, saveContactMessage } from '../../services/firebase';
-import { getGmailComposeUrl, openGmail } from '../../utils/gmail';
+import { emailjsConfigured, sendContactNotification } from '../../services/emailjs';
 import './contact.css';
 
 const emptyForm = { name: '', email: '', message: '' };
@@ -80,7 +81,20 @@ export default function ContactSection() {
       }
 
       setForm(emptyForm);
-      setStatus({ type: 'success', text: 'Thanks for reaching out. Your message has been received.' });
+      try {
+        await sendContactNotification({
+          name: form.name.trim(),
+          email: form.email.trim(),
+          message: form.message.trim(),
+        });
+        setStatus({ type: 'success', text: 'Thanks for reaching out. Your message has been received.' });
+      } catch {
+        void reportClientFailure('contact_notification_failed');
+        setStatus({
+          type: 'error',
+          text: 'Thanks for reaching out. Your message has been received. 2',
+        });
+      }
     } catch {
       void reportClientFailure('contact_submission_failed');
       setStatus({
@@ -124,15 +138,13 @@ export default function ContactSection() {
                 </button>
               </div>
               <div className="contact-detail">
-                <a
-                  href={getGmailComposeUrl(portfolio.email)}
+                <GmailLink
                   target="_blank"
                   rel="noreferrer"
-                  onClick={(event) => openGmail(event, portfolio.email)}
                 >
                   <Mail size={16} />
                   {portfolio.email}
-                </a>
+                </GmailLink>
                 <button
                   type="button"
                   className="copy-contact-button"
@@ -200,10 +212,16 @@ export default function ContactSection() {
             <p className="contact-draft-note">Your message draft is saved on this device and will be restored if you refresh.</p>
             <input className="contact-honeypot" type="text" name="website" tabIndex="-1" autoComplete="off" aria-hidden="true" />
             {status ? <p className={`contact-status ${status.type}`} role={status.type === 'error' ? 'alert' : 'status'}>{status.text}</p> : null}
-            {!firebaseConfigured ? (
-              <p className="contact-status info" role="status">The contact form is temporarily unavailable. Please email me directly instead.</p>
+            {(!firebaseConfigured || !emailjsConfigured) ? (
+              <p className="contact-status info" role="status">
+                The contact form is unavailable until Firebase and EmailJS are configured. Please email me directly instead.
+              </p>
             ) : null}
-            <Button type="submit" className="contact-submit" disabled={isSubmitting || !firebaseConfigured}>
+            <Button
+              type="submit"
+              className="contact-submit"
+              disabled={isSubmitting || !firebaseConfigured || !emailjsConfigured}
+            >
               {isSubmitting ? 'Sending…' : 'Send message'}
               <Send size={17} />
             </Button>

@@ -16,5 +16,24 @@
 .footer-links {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   gap: 1rem;
+}
+
+.footer-links a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.4rem;
+  height: 2.4rem;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  color: var(--text);
+  transition: color var(--transition), border-color var(--transition), transform var(--transition);
+}
+
+.footer-links a:hover {
+  color: var(--accent-strong);
+  border-color: var(--accent);
+  transform: translateY(-2px);
 }
