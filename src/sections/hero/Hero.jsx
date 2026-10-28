@@ -64,11 +64,11 @@ export default function Hero() {
             <div className="panel-body">
               <div className="code-card">
                 <span className="label">Focus</span>
-                <strong>Thoughtful product engineering</strong>
+                <strong>AI-first Product Engineering</strong>
                 <ul>
-                  <li>Android engineering</li>
-                  <li>Full-stack delivery</li>
-                  <li>AI-enabled workflows</li>
+                  {portfolio.mySkills.map((skill, index) => (
+                    <li key={index}>{skill}</li>
+                  ))}
                 </ul>
               </div>
             </div>
@@ -76,9 +76,9 @@ export default function Hero() {
         </motion.div>
       </div>
 
-      <div className="scroll-indicator" aria-label="Scroll to content">
+      {/* <div className="scroll-indicator" aria-label="Scroll to content">
         <MoveDown size={16} />
-      </div>
+      </div> */}
     </section>
   );
 }

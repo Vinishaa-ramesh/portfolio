@@ -11,7 +11,6 @@ export default function ProjectsSection() {
       <div className="container">
         <SectionHeader
           eyebrow="Projects"
-          title="Selected projects."
           description="A closer look at the products, experiments, and engineering work I build."
         />
 
@@ -73,10 +72,7 @@ export default function ProjectsSection() {
         ) : (
           <div className="projects-empty-state">
             <span className="projects-empty-icon" aria-hidden="true"><ImageIcon size={20} /></span>
-            <div>
               <h3>Project case studies are on the way</h3>
-              <p>Add your project details to the <code>projects</code> array in <code>src/data/portfolio.js</code> to create a card here.</p>
-            </div>
           </div>
         )}
       </div>

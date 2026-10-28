@@ -29,8 +29,8 @@ export default function Navbar({ theme, onToggleTheme }) {
       <div className="container nav-shell">
         <a href="#top" className="brand-wordmark" aria-label="Vinishaa K R home">
           <img src="/favicon.svg" alt="" width={30} height={30} />
-          <span>Vinishaa</span>
-          <span className="brand-mark">K R</span>
+          {/* <span>Vinishaa</span> */}
+          <span className="brand-mark">Vinishaa</span>
         </a>
 
         <nav className="desktop-nav" aria-label="Main navigation">

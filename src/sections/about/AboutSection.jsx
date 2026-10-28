@@ -9,14 +9,27 @@ export default function AboutSection() {
       <div className="container">
         <SectionHeader
           eyebrow="About"
-          title="Building thoughtful software with real-world impact."
-          description="Software engineering focused on useful, dependable products across Android and full-stack development."
+          title={portfolio.about.title}
+          description={portfolio.about.description}
         />
 
-        <div className="about-grid">
+        <div className="about-panel">
           <div className="about-copy">
             <p>{portfolio.about.paragraphOne}</p>
             <p>{portfolio.about.paragraphTwo}</p>
+          </div>
+          <div className="about-details">
+            <section className="about-detail-group" aria-labelledby="about-education-heading">
+              <h3 id="about-education-heading">Education</h3>
+              <article className="about-education">
+                <h4>{portfolio.education.degree}</h4>
+                <p>{portfolio.education.institution}</p>
+                <div className="about-education-meta">
+                  <span>{portfolio.education.period}</span>
+                  <span>{portfolio.education.detail}</span>
+                </div>
+              </article>
+            </section>
           </div>
         </div>
       </div>

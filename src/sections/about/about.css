@@ -1,10 +1,18 @@
-.about-grid {
-  max-width: 760px;
+.about-panel {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.5rem;
+  padding: clamp(1.25rem, 4vw, 2.5rem);
+  border: 1px solid var(--border);
+  border-radius: calc(var(--radius) + 4px);
+  background: linear-gradient(180deg, var(--surface-overlay), var(--surface-overlay-subtle));
+  box-shadow: var(--shadow-soft);
 }
 
 .about-copy {
   display: grid;
-  gap: 1rem;
+  align-content: start;
+  gap: 1.1rem;
   color: var(--text-muted);
   line-height: 1.8;
 }
@@ -12,4 +20,78 @@
 .about-copy p {
   margin: 0;
   font-size: 1.05rem;
+}
+
+.about-details {
+  display: grid;
+  align-content: start;
+  gap: 1.8rem;
+}
+
+.about-detail-group {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.about-detail-group h3 {
+  margin: 0;
+  font-size: 2rem;
+  color: var(--accent);
+}
+
+.about-education h4 {
+  margin: 0 0 0.35rem;
+  font-size: 1rem;
+}
+
+.about-education p {
+  margin: 0;
+  color: var(--text-muted);
+  line-height: 1.65;
+}
+
+.about-education-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.8rem;
+  margin-top: 0.45rem;
+  color: var(--accent-strong);
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+
+.about-skills-list {
+  display: grid;
+  gap: 0.45rem;
+  margin: 0;
+  padding: 0;
+  color: var(--text-muted);
+  list-style: none;
+}
+
+.about-skills-list li {
+  position: relative;
+  padding-left: 1.1rem;
+  line-height: 1.55;
+}
+
+.about-skills-list li::before {
+  position: absolute;
+  top: 0.05em;
+  left: 0;
+  color: var(--accent);
+  content: '•';
+  font-size: 1.1em;
+}
+
+@media (min-width: 760px) {
+  .about-panel {
+    grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr);
+    gap: clamp(2rem, 5vw, 4rem);
+    padding: clamp(2rem, 5vw, 3rem);
+  }
+
+  .about-details {
+    gap: 2rem;
+  }
 }

@@ -35,18 +35,11 @@ body {
   margin-bottom: 2.2rem;
 }
 
-.section-heading h2 {
-  margin: 0.55rem 0 0;
-  font-size: clamp(2rem, 5vw, 3rem);
-  letter-spacing: -0.05em;
-  line-height: 1.06;
-}
-
 .section-copy {
   margin: 0.9rem 0 0;
-  color: var(--text-muted);
-  font-size: 1.02rem;
-  max-width: 60ch;
+  color: var(--text);
+  font-size: 1.32rem;
+  max-width: 75ch;
   line-height: 1.7;
 }
 
@@ -55,7 +48,7 @@ body {
   color: var(--accent);
   text-transform: uppercase;
   letter-spacing: 0.14em;
-  font-size: 0.72rem;
+  font-size: 1.32rem;
   font-weight: 700;
 }
 

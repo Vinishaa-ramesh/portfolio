@@ -3,11 +3,11 @@ export const portfolio = {
   title: 'Software Development Engineer',
   email: 'vinishaakr@gmail.com',
   phone: '+91 9092683907',
-  location: 'Chennai, TN',
+  location: 'Vellore, TN',
   summary:
     'Software Development Engineer with 2+ years of experience building Android and full-stack applications using Java, React, and Ruby on Rails. Hands-on experience in AI agent-driven product development, performance optimization, and native Android integration, with a focus on delivering reliable, production-ready solutions.',
   intro:
-    'I build reliable product experiences across Android, full-stack systems, and AI-enabled workflows—turning complex engineering challenges into polished, production-ready solutions.',
+    'I build end-to-end software solutions across full-stack systems, Android applications, and AI-powered workflows, taking ideas from implementation to production.',
   coreStrengths: ['Android engineering', 'Full-stack product delivery', 'AI agent workflows', 'Performance optimization'],
   navLinks: [
     { label: 'About', href: '#about' },
@@ -17,17 +17,21 @@ export const portfolio = {
     { label: 'Certifications', href: '#certifications' },
     { label: 'Contact', href: '#contact' },
   ],
+  mySkills: [
+    'Android Engineering', 'Full Stack Development', 'AI-enabled workflows'
+  ],
   links: {
     linkedin: 'https://www.linkedin.com/in/vinishaa-k-r-ba36121a3',
     github: 'https://github.com/Vinishaa-ramesh',
     resume: '/resume.pdf',
   },
   about: {
+    description: 'Software engineer focused on building reliable, real-world products while continuously growing and expanding technical expertise.',
     paragraphOne:
-      'I build practical, reliable software for real-world products, spanning native Android, full-stack development, and AI-assisted workflows.',
+      'I\'m a Software Development Engineer with 2+ years of experience building Android and full-stack applications, with a focus on creating reliable, scalable, and production-ready products. My experience spans Java, React, Ruby on Rails, and native Android development, along with performance optimization, system integration, and AI agent-driven product development.',
     paragraphTwo:
-      'I enjoy turning complex needs into clear, dependable experiences in close partnership with product and engineering teams.',
-  },
+      'I enjoy solving practical engineering problems, improving application performance, and turning ideas into meaningful user experiences. I\'m always looking to deepen my technical expertise, explore new technologies, and build products that make a real-world impact.'
+    },
   experience: [
     {
       title: 'Software Development Engineer - Full Stack',
@@ -50,18 +54,20 @@ export const portfolio = {
         'Engineered a video pipeline connecting the Android application, Jetson Nano, and Intel RealSense using socket-based communication and GStreamer for video capture and processing.',
         'Implemented a GPS-based activity logger to track user movement during data collection, helping validate the accuracy and reliability of generated results.',
       ],
-      technologies: ['Java', 'React', 'Rails', 'Android', 'Firebase', 'Capacitor', 'ARCore', 'GStreamer', 'Docker', 'MySQL', 'AWS', 'Git', 'Jenkins', 'Mixpanel'],
+      technologies: ['Java', 'React', 'Ruby on Rails', 'Android', 'Firebase', 'Capacitor', 'ARCore', 'GStreamer', 'Docker', 'MySQL', 'AWS', 'Git', 'Jenkins', 'Mixpanel'],
     },
   ],
-  projects: [],
+  projects: [
+    
+  ],
   skills: {
     languages: ['Java', 'JavaScript', 'Ruby', 'Kotlin', 'C/C++', 'Python'],
     frontend: ['React', 'Capacitor', 'JavaScript'],
-    backend: ['Ruby on Rails', 'REST APIs', 'Authentication & data workflows'],
-    databases: ['MySQL'],
+    backend: ['Ruby on Rails', 'REST APIs', 'Redis'],
+    databases: ['MySQL', 'PostgreSQL'],
     cloud: ['AWS (ECR, SageMaker)', 'Firebase', 'Docker'],
-    ai: ['AI agent-driven product development', 'Generative AI product workflows'],
-    tools: ['Git', 'Jenkins', 'CI/CD', 'Mixpanel', 'ARCore', 'GStreamer'],
+    // AI: ['AI agent-driven product development', 'Generative AI product workflows'],
+    tools: ['Git', 'Jenkins', 'Mixpanel', 'ARCore', 'GStreamer'],
   },
   certifications: [],
   education: {

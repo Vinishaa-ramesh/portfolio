@@ -8,8 +8,7 @@ export default function SkillsSection() {
       <div className="container">
         <SectionHeader
           eyebrow="Skills"
-          title="A practical toolkit for product engineering."
-          description="The technology stack below reflects the languages, frameworks, and platforms explicitly supported by my resume."
+          description="A practical toolkit for product engineering."
         />
 
         <div className="skills-grid">

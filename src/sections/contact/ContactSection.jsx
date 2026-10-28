@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { ArrowUpRight, Check, Copy, Github, Linkedin, Mail, MapPin, Phone, Send } from 'lucide-react';
+import ContactInfoCard from '../../common-components/ContactInfoCard';
 import SectionHeader from '../../common-components/SectionHeader';
 import GmailLink from '../../common-components/GmailLink';
 import { portfolio } from '../../data/portfolio';
@@ -111,68 +112,86 @@ export default function ContactSection() {
       <div className="container">
         <SectionHeader
           eyebrow="Contact"
-          title="Let&apos;s build something useful together."
           description="Have a role, collaboration, or idea in mind? Send me a message."
         />
 
         <div className="contact-card">
-          <div className="contact-copy">
+          <aside className="contact-copy" aria-label="Contact details">
             <h3>Get in touch</h3>
-            <p>
-              I enjoy working with product teams to turn ideas into dependable engineering systems, from Android experiences to full-stack product delivery and AI-powered workflows.
-            </p>
-            <div className="contact-links">
-              <div className="contact-detail">
-                <a href={`tel:${portfolio.phone.replace(/\s+/g, '')}`}>
-                  <Phone size={16} />
-                  {portfolio.phone}
-                </a>
-                <button
-                  type="button"
-                  className="copy-contact-button"
-                  onClick={() => copyContactDetail('Phone number', portfolio.phone)}
-                  aria-label="Copy phone number"
-                  title="Copy phone number"
-                >
-                  {copyStatus === 'Phone number copied.' ? <Check size={15} /> : <Copy size={15} />}
-                </button>
-              </div>
-              <div className="contact-detail">
-                <GmailLink
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  <Mail size={16} />
-                  {portfolio.email}
-                </GmailLink>
-                <button
-                  type="button"
-                  className="copy-contact-button"
-                  onClick={() => copyContactDetail('Email address', portfolio.email)}
-                  aria-label="Copy email address"
-                  title="Copy email address"
-                >
-                  {copyStatus === 'Email address copied.' ? <Check size={15} /> : <Copy size={15} />}
-                </button>
-              </div>
-              <a href={portfolio.links.linkedin} target="_blank" rel="noreferrer">
-                <Linkedin size={16} />
-                LinkedIn
-                <ArrowUpRight size={14} />
-              </a>
-              <a href={portfolio.links.github} target="_blank" rel="noreferrer">
-                <Github size={16} />
-                GitHub
-                <ArrowUpRight size={14} />
-              </a>
-              <span>
-                <MapPin size={16} />
-                {portfolio.location}
-              </span>
+            <div className="contact-info-list">
+              <ContactInfoCard
+                icon={Mail}
+                label="Email"
+                action={(
+                  <button
+                    type="button"
+                    className="copy-contact-button"
+                    onClick={() => copyContactDetail('Email address', portfolio.email)}
+                    aria-label="Copy email address"
+                    title="Copy email address"
+                  >
+                    {copyStatus === 'Email address copied.' ? <Check size={15} /> : <Copy size={15} />}
+                  </button>
+                )}
+              >
+                <GmailLink target="_blank" rel="noreferrer">{portfolio.email}</GmailLink>
+              </ContactInfoCard>
+
+              <ContactInfoCard
+                icon={Phone}
+                label="Phone"
+                action={(
+                  <button
+                    type="button"
+                    className="copy-contact-button"
+                    onClick={() => copyContactDetail('Phone number', portfolio.phone)}
+                    aria-label="Copy phone number"
+                    title="Copy phone number"
+                  >
+                    {copyStatus === 'Phone number copied.' ? <Check size={15} /> : <Copy size={15} />}
+                  </button>
+                )}
+              >
+                <a href={`tel:${portfolio.phone.replace(/\s+/g, '')}`}>{portfolio.phone}</a>
+              </ContactInfoCard>
+
+              <ContactInfoCard icon={MapPin} label="Location">
+                <span>{portfolio.location}</span>
+              </ContactInfoCard>
             </div>
             {copyStatus ? <p className="contact-copy-status" role="status">{copyStatus}</p> : null}
-          </div>
 
+            <div className="contact-social">
+              <p>Connect</p>
+              <div className="contact-social-links">
+                <a
+                  href={portfolio.links.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="LinkedIn profile"
+                  title="LinkedIn"
+                >
+                  <span className="social-icon-circle">
+                    <Linkedin size={22} />
+                  </span>
+                  <span>LinkedIn</span>
+                </a>
+
+                <a
+                  href={portfolio.links.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="GitHub profile"
+                  title="GitHub"
+                >
+                  <span className="social-icon-circle">
+                    <Github size={22} />
+                  </span>
+                  <span>GitHub</span>
+                </a>
+              </div>
+            </div>
+          </aside>
           <form className="contact-form" onSubmit={handleSubmit}>
             <label>
               Name
