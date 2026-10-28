@@ -116,7 +116,7 @@ export default function App() {
           <Hero />
           <AboutSection />
           <ExperienceSection />
-          {/* <ProjectsSection /> */}
+          <ProjectsSection />
           <SkillsSection />
           {/* <CertificationsSection /> */}
           <ContactSection />
