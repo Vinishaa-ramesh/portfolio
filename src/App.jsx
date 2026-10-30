@@ -4,6 +4,7 @@ import Navbar from './sections/navigation/Navbar';
 import Hero from './sections/hero/Hero';
 import AboutSection from './sections/about/AboutSection';
 import ExperienceSection from './sections/experience/ExperienceSection';
+import PublicationsSection from './sections/publications/PublicationsSection';
 import ProjectsSection from './sections/projects/ProjectsSection';
 import SkillsSection from './sections/skills/SkillsSection';
 import CertificationsSection from './sections/certifications/CertificationsSection';
@@ -116,6 +117,7 @@ export default function App() {
           <Hero />
           <AboutSection />
           <ExperienceSection />
+          <PublicationsSection />
           {/* <ProjectsSection /> */}
           <SkillsSection />
           {/* <CertificationsSection /> */}

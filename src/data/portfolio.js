@@ -12,6 +12,7 @@ export const portfolio = {
   navLinks: [
     { label: 'About', href: '#about' },
     { label: 'Experience', href: '#experience' },
+    { label: 'Publications', href: '#publications' },
     // { label: 'Projects', href: '#projects' },
     { label: 'Skills', href: '#skills' },
     // { label: 'Certifications', href: '#certifications' },
@@ -56,6 +57,17 @@ export const portfolio = {
       ],
       technologies: ['Java', 'React', 'Ruby on Rails', 'Android', 'Firebase', 'Capacitor', 'ARCore', 'GStreamer', 'Docker', 'MySQL', 'AWS', 'Git', 'Jenkins', 'Mixpanel'],
     },
+  ],
+  publications: [
+    {
+      title: 'Enhancing Outpatient Care Using an LLM-Based Model for Clinical Ward Disposition',
+      publisher: 'IEEE',
+      date: 'Mar 30, 2026',
+      dateTime: '2026-03-30',
+      url: 'https://ieeexplore.ieee.org/document/11452531',
+      description:
+        'This work proposes a Clinical Ward Disposition (CWD) system to optimize Emergency Department patient flow and support admission decisions. A hybrid CNN–BiLSTM model digitizes handwritten admission notes with 86.57% OCR accuracy, while ClinicalBERT and XLNet analyze extracted clinical information to recommend appropriate wards, achieving 90.44% disposition accuracy. The system streamlines clinical documentation and supports efficient patient admission decisions.'
+      },
   ],
   projects: [
     

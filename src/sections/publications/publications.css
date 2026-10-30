@@ -1,0 +1,95 @@
+.publications-section .section-heading h2 {
+  margin: 0.55rem 0 0;
+  font-size: clamp(2rem, 5vw, 3rem);
+  letter-spacing: -0.05em;
+  line-height: 1.06;
+}
+
+.publications-list {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.publication-card {
+  display: grid;
+  gap: 1.25rem;
+  padding: clamp(1.25rem, 4vw, 2rem);
+  border: 1px solid var(--border);
+  border-radius: calc(var(--radius) + 4px);
+  background: linear-gradient(180deg, var(--surface-overlay), var(--surface-overlay-subtle));
+  box-shadow: var(--shadow-soft);
+}
+
+.publication-heading {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: start;
+  gap: 1rem;
+}
+
+.publication-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.8rem;
+  height: 2.8rem;
+  border: 1px solid var(--border);
+  border-radius: 0.9rem;
+  background: var(--accent-soft);
+  color: var(--accent-strong);
+}
+
+.publication-heading h3 {
+  margin: 0;
+  font-size: clamp(1.15rem, 2.5vw, 1.55rem);
+  line-height: 1.4;
+  letter-spacing: -0.025em;
+}
+
+.publication-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.45rem;
+  margin: 0.45rem 0 0;
+  color: var(--text-muted);
+}
+
+.publication-meta span:first-child {
+  color: var(--accent-strong);
+  font-weight: 600;
+}
+
+.publication-link {
+  display: inline-flex;
+  align-items: center;
+  justify-self: start;
+  gap: 0.5rem;
+  padding: 0.62rem 0.95rem;
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  color: var(--text);
+  font-weight: 600;
+  transition: color var(--transition), border-color var(--transition), background var(--transition), transform var(--transition);
+}
+
+.publication-link:hover {
+  transform: translateY(-1px);
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  color: var(--accent-strong);
+}
+
+.publication-description {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 1rem;
+  line-height: 1.8;
+}
+
+@media (min-width: 680px) {
+  .publication-card {
+    gap: 1.5rem;
+    padding: clamp(1.75rem, 4vw, 2.5rem);
+  }
+}
