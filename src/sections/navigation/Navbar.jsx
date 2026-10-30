@@ -46,9 +46,11 @@ export default function Navbar({ theme, onToggleTheme }) {
         </nav>
 
         <div className="nav-actions">
-          <Button href="#contact" variant="primary" className="nav-cta">
-            Let&apos;s Talk
-          </Button>
+          {!isMenuOpen && 
+            <Button href="#contact" variant="primary" className="nav-cta">
+              Let&apos;s Talk
+            </Button>
+          }
           <button
             type="button"
             className="theme-toggle"
@@ -72,7 +74,9 @@ export default function Navbar({ theme, onToggleTheme }) {
 
       {isMenuOpen ? (
         <div className="mobile-menu" aria-label="Mobile navigation">
-          {portfolio.navLinks.map((link) => (
+          {portfolio.navLinks
+            .filter((link) => link.label.toLowerCase() !== 'contact')
+            .map((link) => (
             <a
               key={link.href}
               href={link.href}
